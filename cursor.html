@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- Swiper CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+  <!-- Your custom styles -->
+  <style>
+    /* Your other styles can go here */
+    .swiper-pagination-progressbar {
+      /* Customize the progress bar container */
+      position: relative;
+    }
+    .swiper-pagination-progressbar-separator {
+      /* Customize the separator style */
+      position: absolute;
+      background-color: #000; /* Color of the separator */
+      width: 14px !important; /* Width of the separator */
+      height: 100%; /* Height of the separator */
+      /* Adjust left or right to position the separator between progress bars */
+    }
+  </style>
+</head>
+<body>
+
+<!-- Swiper -->
+<div class="swiper-container">
+  <div class="swiper-wrapper">
+    <!-- Slides -->
+    <div class="swiper-slide">Slide 1</div>
+    <div class="swiper-slide">Slide 2</div>
+    <div class="swiper-slide">Slide 3</div>
+    <!-- Add more slides as needed -->
+  </div>
+  <!-- Pagination -->
+  <div class="swiper-pagination swiper-pagination-progressbar"></div>
+</div>
+
+<!-- Swiper JS -->
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
+<!-- Initialize Swiper -->
+<script>
+  var swiper = new Swiper('.swiper-container', {
+    pagination: {
+      el: '.swiper-pagination',
+      type: 'progressbar', // Use progressbar type
+    },
+    on: {
+      init: function () {
+        var swiper = this;
+        var progressbar = swiper.pagination.el;
+        var slidesCount = swiper.slides.length; // Subtract 1 as slides are zero-indexed
+        console.log(slidesCount);
+        var progressBarWidth = 100 / slidesCount; // Calculate width for each slide's progress
+
+        for (var i = 0; i < slidesCount; i++) {
+          // Create separators for each slide except the last one
+          if (i !== slidesCount - 1) {
+            var separator = document.createElement('div');
+            separator.classList.add('swiper-pagination-progressbar-separator');
+            separator.style.left = (progressBarWidth * (i + 1)) + '%'; // Position the separator
+            progressbar.appendChild(separator); // Append separator to progress bar
+          }
+        }
+      },
+    },
+  });
+</script>
+
+</body>
+</html>
